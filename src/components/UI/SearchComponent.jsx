@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useCity } from "../../lib/hooks/useCity";
 import { useTempUnit } from "../../lib/hooks/useTempUnit";
-import Button from "../base/button";
+import Button from "../base/Button.jsx";
 import styles from './SearchComponent.module.css';
 
 export default function SearchComponent () {
