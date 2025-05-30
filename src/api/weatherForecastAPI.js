@@ -4,7 +4,9 @@ export default async function fetchWeatherForecast(city) {
     try {
         const response = await fetch(apiUrl);
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            const error = new Error('Network response was not ok');
+            error.status = response.status;
+            throw error;
         }
         const data = await response.json();
         return data;        
