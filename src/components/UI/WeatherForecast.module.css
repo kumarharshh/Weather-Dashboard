@@ -1,45 +1,304 @@
 .weatherForecast {
   margin-top: 2rem;
-  padding: 1.5rem;
-  background-color: #f8f9fa;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  padding: 2rem;
+  background: linear-gradient(135deg, #a8c6f7 0%, #b8c8e8 50%, #d4c5f9 100%);
+  border-radius: 24px;
+  box-shadow: 0 15px 35px rgba(168, 198, 247, 0.2);
+  position: relative;
+  overflow: hidden;
+  animation: slideUp 0.8s ease-out;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.weatherForecast::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 50%);
+  animation: shimmer 12s ease-in-out infinite;
+  pointer-events: none;
 }
 
 .forecastHeading {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 600;
-  color: #333;
-  margin-bottom: 1rem;
+  color: #4a5568;
+  margin-bottom: 1.5rem;
   text-align: center;
+  text-shadow: 0 2px 8px rgba(74, 85, 104, 0.1);
+  position: relative;
+  z-index: 2;
+  animation: fadeInDown 0.6s ease-out;
 }
 
 .forecastGrid {
   display: flex;
+  grid-template-columns: repeat(2, minmax(200px, 2fr));
+  grid-template-rows: repeat(1, minmax(150px, auto));
+  padding: 1rem;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 1.2rem;
   justify-content: center;
+  position: relative;
+  z-index: 2;
+  animation: staggerIn 0.8s ease-out;
+  transition: all 0.3s ease;
 }
 
-/* Tablet */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  font-size: 1.2rem;
+  color: #667eea;
+  font-weight: 500;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.loading::after {
+  content: '';
+  width: 20px;
+  height: 20px;
+  border: 3px solid #667eea;
+  border-top: 3px solid transparent;
+  border-radius: 50%;
+  margin-left: 10px;
+  animation: spin 1s linear infinite;
+}
+
+/* Animations */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes staggerIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0%, 100% { 
+    transform: rotate(0deg) scale(1); 
+    opacity: 0.2;
+  }
+  50% { 
+    transform: rotate(180deg) scale(1.05); 
+    opacity: 0.05;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    opacity: 1; 
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.8; 
+    transform: scale(1.02);
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Tablet Styles */
 @media (max-width: 768px) {
+  .weatherForecast {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    border-radius: 20px;
+  }
+
+  .forecastHeading {
+    font-size: 1.3rem;
+    margin-bottom: 1.2rem;
+  }
+
   .forecastGrid {
-    gap: 0.75rem;
+    gap: 1rem;
+  }
+
+  .loading {
+    padding: 2.5rem;
+    font-size: 1.1rem;
+  }
+}
+
+/* Mobile Styles - Horizontal Scroll */
+@media (max-width: 480px) {
+  .weatherForecast {
+    margin-top: 1rem;
+    padding: 1.2rem;
+    border-radius: 16px;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+
+  .forecastHeading {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .forecastGrid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(145px, 2fr));
+    grid-template-rows: repeat(1, minmax(125px, auto));
+    padding: 0.5rem;
+    flex-wrap: wrap;
+    padding: 1rem;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+    animation: staggerIn 0.8s ease-out;
+    transition: all 0.3s ease;
+  }
+
+  .forecastGrid::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .forecastGrid::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    margin: 0 10px;
+  }
+
+  .forecastGrid::-webkit-scrollbar-thumb {
+    background: rgba(74, 85, 104, 0.4);
+    border-radius: 10px;
+    transition: background 0.3s ease;
+  }
+
+  .forecastGrid::-webkit-scrollbar-thumb:hover {
+    background: rgba(74, 85, 104, 0.6);
+  }
+
+  .loading {
+    padding: 2rem;
+    font-size: 1rem;
+  }
+
+  .loading::after {
+    width: 16px;
+    height: 16px;
+    border-width: 2px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 360px) {
+  .weatherForecast {
+    padding: 1rem;
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
   }
 
   .forecastHeading {
     font-size: 1.1rem;
   }
+
+  .forecastGrid {
+    gap: 0.6rem;
+  }
 }
 
-/* Mobile */
-@media (max-width: 480px) {
+/* Hover Effects for Desktop */
+@media (min-width: 769px) {
+  .weatherForecast {
+    transition: all 0.4s ease;
+  }
+
+  .weatherForecast:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px rgba(168, 198, 247, 0.3);
+    background: linear-gradient(135deg, #b8d0f8 0%, #c8d8e9 50%, #ddd5fa 100%);
+  }
+
   .forecastGrid {
-    flex-direction: column;
-    align-items: center;
+    transition: all 0.3s ease;
+  }
+
+  .forecastGrid:hover {
+    gap: 1.4rem;
+  }
+}
+
+/* Enhanced animations for larger screens */
+@media (min-width: 1024px) {
+  .weatherForecast {
+    padding: 2.5rem;
+    max-width: 1200px;
+    margin: 2rem auto 0;
   }
 
   .forecastHeading {
-    font-size: 1rem;
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .forecastGrid {
+    gap: 1.5rem;
+  }
+
+  .weatherForecast:hover .forecastGrid {
+    gap: 1.8rem;
+  }
+}
+
+/* Smooth scroll indicator for mobile */
+@media (max-width: 480px) {
+  .forecastGrid::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    right: 0;
+    width: 30px;
+    height: 2px;
+    background: linear-gradient(to right, transparent, rgba(74, 85, 104, 0.3));
+    border-radius: 1px;
+    animation: scrollHint 3s ease-in-out infinite;
+  }
+}
+
+@keyframes scrollHint {
+  0%, 100% { 
+    opacity: 0.3; 
+    transform: translateX(0);
+  }
+  50% { 
+    opacity: 0.7; 
+    transform: translateX(-10px);
   }
 }

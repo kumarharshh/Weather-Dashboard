@@ -1,3 +1,4 @@
+import styles from './Header.module.css'
 import { useState } from 'react'
 import { useAuth } from '../../lib/hooks/useAuth'
 import Button from '../base/Button'
@@ -8,14 +9,15 @@ export default function Header() {
   const [showModal, setShowModal] = useState(false);
 
   const handleAuthClick = () => {
-    if (user) logout() ;
+    if (user) logout();
     else setShowModal(true);
   }
 
   return (
-    <header className="header">
-      <h1 className="header-title">Weather App</h1>
-      <p className="header-subtitle">Get the latest weather updates</p>
+    <header className={styles.header}>
+      <div>
+        <h1 className={styles['header-title']}>Weather App</h1>
+      </div>
       <Button
         backgroundColor={'#007bff'}
         onClick={handleAuthClick}
@@ -26,4 +28,4 @@ export default function Header() {
       {showModal && <LoginModal onClose={() => setShowModal(false)} />}
     </header>
   )
-};
+}

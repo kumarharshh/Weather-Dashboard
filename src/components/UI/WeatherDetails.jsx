@@ -50,7 +50,7 @@ export default function WeatherDetails() {
       {data && 
         <div>
           <h2 className={styles.heading}>Weather Details for {city}</h2>
-          <WeatherInfo weatherData={data} />
+          <WeatherInfo weatherData={data} isForecast={false} />
           <WeatherForecast />
         </div>
       }

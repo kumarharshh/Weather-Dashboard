@@ -26,9 +26,6 @@ export default function WeatherForecast() {
             )}
             {data && (
                 <div className={styles.weatherForecast}>
-                    <div className={styles.forecastHeading}>
-                        Weather Forecast for {city}
-                    </div>
                     <div className={styles.forecastGrid}>
                         {dailyForecasts?.map((item, index) => (
                             <WeatherInfo
@@ -40,6 +37,7 @@ export default function WeatherForecast() {
                                     wind: item.wind,
                                     clouds: item.clouds,
                                 }}
+                                isForecast={true}
                             />
                         ))}
                     </div>
