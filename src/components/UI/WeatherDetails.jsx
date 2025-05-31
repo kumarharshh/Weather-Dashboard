@@ -43,6 +43,7 @@ export default function WeatherDetails() {
 
   return (
     <div className={styles.weatherDetails}>
+      {!city && <div>refetching the last city data</div>}
       {isLoading &&
         <div className={styles.loading}>Loading...</div>
       }
@@ -53,9 +54,6 @@ export default function WeatherDetails() {
           <WeatherForecast />
         </div>
       }
-      {/* {error &&
-        <ErrorMessage message={error.message} />
-      } */}
     </div>
   );
 }

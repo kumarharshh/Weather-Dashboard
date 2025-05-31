@@ -1,13 +1,34 @@
 import { useState } from "react";
 import { useCity } from "../../lib/hooks/useCity";
 import { useTempUnit } from "../../lib/hooks/useTempUnit";
+import { useAuth } from "../../lib/hooks/useAuth.js";
 import Button from "../base/Button.jsx";
+import { supabase } from "../../lib/clients/supabaseClient.js";
 import styles from './SearchComponent.module.css';
 
 export default function SearchComponent () {
   const { setCity } = useCity();
+  const { user } = useAuth();
   const { tempUnit, setTempUnit } = useTempUnit();
   const [searchTerm, setSearchTerm] = useState('');
+
+  const handleSearchClick = async () => {
+    if (searchTerm.trim() === '') {
+      alert('Please enter a city name');
+      return;
+    }
+    setCity(searchTerm);
+    localStorage.setItem('city', searchTerm);
+    if (user) {
+      await supabase
+        .from('profiles')
+        .upsert({
+          id: user.id,
+          last_city: searchTerm
+        });
+    }
+    setSearchTerm('');
+  }
 
   return (
     <div className={styles.searchComponent}>
@@ -24,11 +45,7 @@ export default function SearchComponent () {
           backgroundColor="#007bff"
           type="button"
           rounded={true}
-          onClick={() => {
-            setCity(searchTerm);
-            localStorage.setItem('city', searchTerm);
-            setSearchTerm('');
-          }}
+          onClick={handleSearchClick}
         />
       </div>
       <div className={styles.buttonRow}>
