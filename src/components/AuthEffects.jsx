@@ -5,27 +5,37 @@ import { supabase } from "../lib/clients/supabaseClient.js";
 
 export default function AuthEffects() {
   const { user } = useAuth();
-  const { setCity } = useCity();
-
-  useEffect(() => {
+  const { city,setCity } = useCity();
+    useEffect(() => {
     const fetchCity = async () => {
-      if (user?.id) {
+        if (user?.id) {
+        // Save current city before it gets overwritten
+        const localCity = localStorage.getItem("loggedOutCity");
+        if (!localCity && city) {
+            localStorage.setItem("loggedOutCity", city);
+        }
+
+        // Fetch from Supabase
         const { data } = await supabase
-          .from("profiles")
-          .select("last_city")
-          .eq("id", user.id)
-          .single();
+            .from("profiles")
+            .select("last_city")
+            .eq("id", user.id)
+            .single();
 
         if (data?.last_city) {
-          setCity(data.last_city);
+            setCity(data.last_city);
         }
-      } else {
-        setCity(null);
-      }
+        } else {
+        // Restore previous logged-out city
+        const lastCity = localStorage.getItem("city") ;
+        if (lastCity) {
+            setCity(lastCity);
+        }
+        }
     };
 
     fetchCity();
-  }, [user, setCity]);
-
+    }, [user]);
+    
   return null;
 }

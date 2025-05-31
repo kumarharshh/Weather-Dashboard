@@ -22,8 +22,8 @@ export default function WeatherInfo({ weatherData, isForecast = false }) {
 
   const feelsLike = weatherData.main.feels_like;
   const displayFeelsLike = tempUnit === "Fahrenheit"
-    ? `${Math.round((feelsLike * 9 / 5) + 32)}°`
-    : `${Math.round(feelsLike)}°`;
+    ? `${Math.round((feelsLike * 9 / 5) + 32)}°F`
+    : `${Math.round(feelsLike)}°C`;
 
   if (isForecast) {
     return (
@@ -57,7 +57,6 @@ export default function WeatherInfo({ weatherData, isForecast = false }) {
             <div className={styles.locationIcon}>📍</div>
             <h1 className={styles.cityName}>{cityName}</h1>
           </div>
-          <div className={styles.moreOptions}>⋯</div>
         </div>
 
         <div className={styles.dateTimeInfo}>
@@ -69,7 +68,7 @@ export default function WeatherInfo({ weatherData, isForecast = false }) {
 
         <div className={styles.mainWeatherContent}>
           <div className={styles.temperatureSection}>
-            <div className={styles.mainTemp}>{Math.round(temperature)}°</div>
+            <div className={styles.mainTemp}>{displayTemp}</div>
             <div className={styles.feelsLike}>Feels like {displayFeelsLike}</div>
             <div className={styles.condition}>{condition}</div>
           </div>
@@ -93,7 +92,7 @@ export default function WeatherInfo({ weatherData, isForecast = false }) {
             </div>
             <div className={styles.sunItem}>
               <div className={styles.sunIcon}>💨</div>
-              <div className={styles.sunLabel}>{windSpeed} km/h</div>
+              <div className={styles.sunLabel}>{windSpeed} m/s</div>
             </div>
             <div className={styles.sunItem}>
               <div className={styles.sunIcon}>🧭</div>
