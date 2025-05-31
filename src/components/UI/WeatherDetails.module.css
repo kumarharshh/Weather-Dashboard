@@ -28,7 +28,11 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 425px) {
+  .weatherContent {
+    padding: 0.5rem;
+    margin: 0.5rem;
+  }
   .weatherDetails {
     padding: 0.75rem;
   }

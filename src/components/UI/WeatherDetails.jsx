@@ -29,6 +29,9 @@ export default function WeatherDetails() {
         {error.status === 404 &&
          <ErrorMessage message={`${city} is not a valid City name. Please try another city.`} />
         }
+        {error.status !== 404 &&
+         <ErrorMessage message="An error occurred while fetching the weather data. Please try again later." />
+        }
       </div>
     );
   }
@@ -46,7 +49,7 @@ export default function WeatherDetails() {
         <div className={styles.loading}>Loading...</div>
       }
       {data && 
-        <div>
+        <div className={styles.weatherContent}>
           <h2 className={styles.heading}>Weather Details for {city}</h2>
           <WeatherInfo weatherData={data} isForecast={false} />
           <WeatherForecast />

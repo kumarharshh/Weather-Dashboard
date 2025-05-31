@@ -155,7 +155,7 @@
 }
 
 /* Mobile Styles - Horizontal Scroll */
-@media (max-width: 480px) {
+@media (max-width: 425px) {
   .weatherForecast {
     margin-top: 1rem;
     padding: 1.2rem;
@@ -278,7 +278,7 @@
 }
 
 /* Smooth scroll indicator for mobile */
-@media (max-width: 480px) {
+@media (max-width: 425px) {
   .forecastGrid::after {
     content: '';
     position: absolute;
