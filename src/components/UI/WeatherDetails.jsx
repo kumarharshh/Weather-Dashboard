@@ -40,10 +40,8 @@ export default function WeatherDetails() {
       </div>
     );
   }
-
   return (
     <div className={styles.weatherDetails}>
-      {!city && <div>refetching the last city data</div>}
       {isLoading &&
         <div className={styles.loading}>Loading...</div>
       }
